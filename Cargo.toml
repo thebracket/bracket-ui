@@ -1,0 +1,8 @@
+[package]
+name = "bracket-ui"
+version = "0.1.0"
+authors = ["Herbert Wolverson <herberticus@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+bracket-lib = { path = "C:/Users/herbe/Documents/LearnRust/rltk_rs" }
