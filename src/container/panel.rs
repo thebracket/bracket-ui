@@ -1,6 +1,4 @@
-use crate::{
-    element::{ElementId, UiElement},
-};
+use crate::element::{ElementId, UiElement};
 use bracket_lib::prelude::*;
 
 #[derive(Debug)]
@@ -112,10 +110,7 @@ impl Panel {
         })
     }
 
-    pub fn split_vertical(
-        &mut self,
-        percent: i32,
-    ) -> (Box<Self>, Box<Self>) {
+    pub fn split_vertical(&mut self, percent: i32) -> (Box<Self>, Box<Self>) {
         let top = Panel::new(PanelLayout::Top {
             percent: Some(percent),
             min: None,
@@ -130,10 +125,7 @@ impl Panel {
         (top, bottom)
     }
 
-    pub fn split_horizontal(
-        &mut self,
-        percent: i32,
-    ) -> (Box<Self>, Box<Self>) {
+    pub fn split_horizontal(&mut self, percent: i32) -> (Box<Self>, Box<Self>) {
         let top = Panel::new(PanelLayout::Left {
             percent: Some(percent),
             min: None,

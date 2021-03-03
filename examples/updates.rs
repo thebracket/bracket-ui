@@ -29,10 +29,13 @@ impl State {
             "test_panel_title",
             ui.by_name("test_panel").unwrap(),
             Border::new(
-                false, 
-                ColorPair::new(WHITE, BLACK), 
-                Some(BorderTitle{ title: "Blah".to_string(), color: ColorPair::new(CYAN, BLACK) }),
-            )
+                false,
+                ColorPair::new(WHITE, BLACK),
+                Some(BorderTitle {
+                    title: "Blah".to_string(),
+                    color: ColorPair::new(CYAN, BLACK),
+                }),
+            ),
         );
 
         Self { ui, counter: 0 }
@@ -43,8 +46,12 @@ impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
         self.counter += 1;
         ctx.cls();
-        self.ui.set_text(self.ui.by_name("fps").unwrap(), format!("{}", ctx.fps));
-        self.ui.set_text(self.ui.by_name("test_panel_title").unwrap(), format!("Frame #{}", self.counter));
+        self.ui
+            .set_text(self.ui.by_name("fps").unwrap(), format!("{}", ctx.fps));
+        self.ui.set_text(
+            self.ui.by_name("test_panel_title").unwrap(),
+            format!("Frame #{}", self.counter),
+        );
         self.ui.render_to_batch(ctx).expect("Error batching UI");
         render_draw_buffer(ctx).expect("Render batch error");
     }
