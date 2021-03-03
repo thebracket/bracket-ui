@@ -48,7 +48,7 @@ impl Label {
             text: text.to_string(),
             color,
             id: ElementId::new(),
-            same_line
+            same_line,
         })
     }
 }

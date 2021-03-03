@@ -1,4 +1,7 @@
-use crate::{container::EmptyRoot, element::{ElementId, UiElement}};
+use crate::{
+    container::EmptyRoot,
+    element::{ElementId, UiElement},
+};
 use bracket_lib::prelude::*;
 use std::collections::HashMap;
 

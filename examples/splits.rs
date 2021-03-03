@@ -10,11 +10,19 @@ impl State {
         let mut ui = UserInterface::new(0, 0);
 
         let mut main_panel = Panel::new(PanelLayout::Fill);
-        let (top,bottom) = main_panel.split_horizontal(50);
+        let (top, bottom) = main_panel.split_horizontal(50);
 
         ui.insert("root", ui.root(), main_panel);
-        ui.insert("tf", top, Filler::new(to_cp437('#'), ColorPair::new(RED, BLACK)));
-        ui.insert("bf", bottom, Filler::new(to_cp437('!'), ColorPair::new(GREEN, BLACK)));
+        ui.insert(
+            "tf",
+            top,
+            Filler::new(to_cp437('#'), ColorPair::new(RED, BLACK)),
+        );
+        ui.insert(
+            "bf",
+            bottom,
+            Filler::new(to_cp437('!'), ColorPair::new(GREEN, BLACK)),
+        );
 
         Self { ui }
     }

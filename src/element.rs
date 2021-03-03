@@ -30,5 +30,7 @@ pub trait UiElement {
     fn measure_x(&self) -> i32 {
         0
     }
-    fn same_line(&self) -> bool { false }
+    fn same_line(&self) -> bool {
+        false
+    }
 }

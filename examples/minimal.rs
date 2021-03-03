@@ -21,7 +21,11 @@ impl State {
         ui.insert(
             "root",
             ui.root(),
-            Label::new("Hello World on a 2nd line", ColorPair::new(GREEN, BLACK), false),
+            Label::new(
+                "Hello World on a 2nd line",
+                ColorPair::new(GREEN, BLACK),
+                false,
+            ),
         );
 
         Self { ui }

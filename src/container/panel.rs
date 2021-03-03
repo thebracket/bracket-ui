@@ -111,12 +111,16 @@ impl Panel {
     }
 
     pub fn split_vertical(&mut self, percent: i32) -> (ElementId, ElementId) {
-        let top = Panel::new(
-            PanelLayout::Top{ percent: Some(percent), min: None, max: None }
-        );
-        let bottom = Panel::new(
-            PanelLayout::Top{ percent: Some(100), min: None, max: None }
-        );
+        let top = Panel::new(PanelLayout::Top {
+            percent: Some(percent),
+            min: None,
+            max: None,
+        });
+        let bottom = Panel::new(PanelLayout::Top {
+            percent: Some(100),
+            min: None,
+            max: None,
+        });
         let top_id = top.id();
         let bottom_id = bottom.id();
 
@@ -127,12 +131,16 @@ impl Panel {
     }
 
     pub fn split_horizontal(&mut self, percent: i32) -> (ElementId, ElementId) {
-        let top = Panel::new(
-            PanelLayout::Left{ percent: Some(percent), min: None, max: None }
-        );
-        let bottom = Panel::new(
-            PanelLayout::Left{ percent: Some(100), min: None, max: None }
-        );
+        let top = Panel::new(PanelLayout::Left {
+            percent: Some(percent),
+            min: None,
+            max: None,
+        });
+        let bottom = Panel::new(PanelLayout::Left {
+            percent: Some(100),
+            min: None,
+            max: None,
+        });
         let top_id = top.id();
         let bottom_id = bottom.id();
 
