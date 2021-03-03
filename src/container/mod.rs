@@ -4,7 +4,7 @@ pub use root::*;
 pub mod panel;
 pub use panel::*;
 pub mod border;
-pub use border::Border;
+pub use border::*;
 
 use crate::element::UiElement;
 

@@ -35,11 +35,21 @@ impl State {
         ui.insert(lt, Filler::new(to_cp437('░'), ColorPair::new(BLACK, GOLD)));
 
         // Add some labels
-        let lefty_border = ui.insert(lt, Border::new(true, ColorPair::new(WHITE, BLACK)));
+        let lefty_border = ui.insert(
+            lt,
+            Border::new(
+                true,
+                ColorPair::new(WHITE, BLACK),
+                Some(BorderTitle {
+                    title: "Panel Title".to_string(),
+                    color: ColorPair::new(CYAN, BLACK),
+                }),
+            ),
+        );
         ui.insert(leftist, Label::new("Lefty", ColorPair::new(BLACK, WHITE)));
         ui.insert(
             lefty_border,
-            Label::new("Left-Top", ColorPair::new(BLACK, WHITE)),
+            Label::new("Left-Top", ColorPair::new(GRAY, BLACK)),
         );
 
         Self { ui }

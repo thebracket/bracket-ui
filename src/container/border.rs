@@ -2,11 +2,17 @@ use bracket_lib::prelude::*;
 
 use crate::element::{ElementId, UiElement};
 
+pub struct BorderTitle {
+    pub title: String,
+    pub color: ColorPair,
+}
+
 pub struct Border {
     double_line: bool,
     color: ColorPair,
     id: ElementId,
     children: Vec<Box<dyn UiElement>>,
+    title: Option<BorderTitle>,
 }
 
 impl UiElement for Border {
@@ -17,8 +23,22 @@ impl UiElement for Border {
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
         if self.double_line {
             batch.draw_double_box(parent_bounds, self.color);
+            if let Some(bt) = &self.title {
+                batch.print_color(
+                    Point::new(parent_bounds.x1 + 1, parent_bounds.y1),
+                    &format!("╣ {} ╠", bt.title),
+                    bt.color,
+                );
+            }
         } else {
             batch.draw_box(parent_bounds, self.color);
+            if let Some(bt) = &self.title {
+                batch.print_color(
+                    Point::new(parent_bounds.x1 + 1, parent_bounds.y1),
+                    &format!("┤ {} ├", bt.title),
+                    bt.color,
+                );
+            }
         }
         let bounds = Rect::with_exact(
             parent_bounds.x1 + 1,
@@ -50,12 +70,13 @@ impl UiElement for Border {
 }
 
 impl Border {
-    pub fn new(double_line: bool, color: ColorPair) -> Box<Self> {
+    pub fn new(double_line: bool, color: ColorPair, title: Option<BorderTitle>) -> Box<Self> {
         Box::new(Self {
             double_line,
             color,
             id: ElementId::new(),
             children: Vec::new(),
+            title,
         })
     }
 }
