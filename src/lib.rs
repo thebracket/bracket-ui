@@ -1,5 +1,6 @@
 mod container;
 mod element;
+mod mouse_coverage;
 mod ui;
 mod widgets;
 

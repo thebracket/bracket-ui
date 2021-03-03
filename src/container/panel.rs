@@ -1,4 +1,5 @@
 use crate::element::{ElementId, UiElement};
+use crate::mouse_coverage::MouseCoverage;
 use bracket_lib::prelude::*;
 
 #[derive(Debug)]
@@ -30,7 +31,7 @@ impl UiElement for Panel {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
         if !self.visible {
             return;
         }
@@ -69,7 +70,8 @@ impl UiElement for Panel {
             }
         };
         self.cached_bounds = bounds;
-        super::panel_inner_render(bounds, batch, &mut self.children);
+        mouse_coverage.push(self.id, self.cached_bounds);
+        super::panel_inner_render(bounds, batch, &mut self.children, mouse_coverage);
     }
 
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement> {

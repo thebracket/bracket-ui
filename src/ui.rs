@@ -1,15 +1,20 @@
-use crate::{
-    container::EmptyRoot,
-    element::{ElementId, UiElement},
-};
+use crate::{container::EmptyRoot, element::{ElementId, UiElement}, mouse_coverage::{self, MouseCoverage}};
 use bracket_lib::prelude::*;
 use std::collections::HashMap;
+use std::collections::VecDeque;
+
+#[derive(Debug)]
+pub enum UiMessage {
+    MouseClick(ElementId)
+}
 
 pub struct UserInterface {
     root_element: Box<dyn UiElement>,
     layer: usize,
     batch_index: usize,
     name_to_id: HashMap<String, ElementId>,
+    messages: VecDeque<UiMessage>,
+    enable_mouse: bool
 }
 
 impl UserInterface {
@@ -22,9 +27,15 @@ impl UserInterface {
             layer,
             batch_index,
             name_to_id: name_to_id,
+            messages: VecDeque::new(),
+            enable_mouse: false
         };
 
         ui
+    }
+
+    pub fn track_mouse(&mut self) {
+        self.enable_mouse = true;
     }
 
     pub fn render_to_batch(&mut self, ctx: &mut BTerm) -> BError {
@@ -32,8 +43,12 @@ impl UserInterface {
         let (w, h) = ctx.get_char_size();
         let bounds = Rect::with_size(0, 0, w - 1, h - 1);
         let mut batch = DrawBatch::new();
-        self.root_element.render(bounds, &mut batch);
+        let mut mouse_coverage = MouseCoverage::new(w, h);
+        self.root_element.render(bounds, &mut batch, &mut mouse_coverage);
         batch.submit(self.batch_index)?;
+        if self.enable_mouse {
+            mouse_coverage.message_pump(ctx, &mut self.messages);
+        }
         Ok(())
     }
 
@@ -96,5 +111,9 @@ impl UserInterface {
         if let Some(e) = self.root_element.find(id) {
             e.hide();
         }
+    }
+
+    pub fn pop_message(&mut self) -> Option<UiMessage> {
+        self.messages.pop_back()
     }
 }

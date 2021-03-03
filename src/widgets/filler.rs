@@ -1,6 +1,6 @@
 use bracket_lib::prelude::*;
-
 use crate::element::{ElementId, UiElement};
+use crate::mouse_coverage::MouseCoverage;
 
 pub struct Filler {
     glyph: FontCharType,
@@ -20,7 +20,7 @@ impl UiElement for Filler {
         None
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, _mouse_coverage: &mut MouseCoverage) {
         parent_bounds.for_each(|p| {
             batch.set(p, self.color, self.glyph);
         });

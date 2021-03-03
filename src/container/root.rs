@@ -1,4 +1,5 @@
 use crate::element::{ElementId, UiElement};
+use crate::mouse_coverage::MouseCoverage;
 use bracket_lib::prelude::*;
 
 pub struct EmptyRoot {
@@ -11,9 +12,9 @@ impl UiElement for EmptyRoot {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
         // This doesn't draw anything by itself, but passes to children
-        super::panel_inner_render(parent_bounds, batch, &mut self.children);
+        super::panel_inner_render(parent_bounds, batch, &mut self.children, mouse_coverage);
     }
 
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement> {

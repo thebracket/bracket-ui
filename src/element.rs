@@ -1,6 +1,7 @@
 use bracket_lib::prelude::*;
 use lazy_static::*;
 use std::sync::Mutex;
+use crate::mouse_coverage::MouseCoverage;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct ElementId(usize);
@@ -21,7 +22,7 @@ impl ElementId {
 
 pub trait UiElement {
     fn id(&self) -> ElementId;
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch);
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage);
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement>;
     fn insert_child(&mut self, _e: Box<dyn UiElement>) {}
     fn measure_y(&self) -> i32 {

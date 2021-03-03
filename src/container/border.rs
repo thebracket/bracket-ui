@@ -1,6 +1,7 @@
 use bracket_lib::prelude::*;
 
 use crate::element::{ElementId, UiElement};
+use crate::mouse_coverage::MouseCoverage;
 
 pub struct BorderTitle {
     pub title: String,
@@ -20,7 +21,7 @@ impl UiElement for Border {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
         if self.double_line {
             batch.draw_double_box(parent_bounds, self.color);
             if let Some(bt) = &self.title {
@@ -46,7 +47,7 @@ impl UiElement for Border {
             parent_bounds.x2 - 1,
             parent_bounds.y2 - 1,
         );
-        super::panel_inner_render(bounds, batch, &mut self.children);
+        super::panel_inner_render(bounds, batch, &mut self.children, mouse_coverage);
     }
 
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement> {
