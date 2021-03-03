@@ -3,7 +3,7 @@ use crate::{
     element::{ElementId, UiElement},
 };
 use bracket_lib::prelude::*;
-use std::{any::Any, collections::HashMap};
+use std::collections::HashMap;
 
 pub struct UserInterface {
     root_element: Box<dyn UiElement>,
@@ -62,10 +62,6 @@ impl UserInterface {
         } else {
             None
         }
-    }
-
-    pub(crate) fn store_name<S: ToString>(&mut self, name: S, id: ElementId) {
-        self.name_to_id.insert(name.to_string(), id);
     }
 
     pub fn text(&mut self, id: ElementId) -> String {
