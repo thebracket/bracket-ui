@@ -4,6 +4,7 @@ use bracket_ui::prelude::*;
 struct State {
     ui: UserInterface,
     counter: usize,
+    time_accumulator: f32,
 }
 
 impl State {
@@ -38,20 +39,39 @@ impl State {
             ),
         );
 
-        Self { ui, counter: 0 }
+        Self {
+            ui,
+            counter: 0,
+            time_accumulator: 0.0,
+        }
     }
 }
 
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
         self.counter += 1;
+        self.time_accumulator += ctx.frame_time_ms;
         ctx.cls();
+
+        // Peform some updates
         self.ui
             .set_text(self.ui.by_name("fps").unwrap(), format!("{}", ctx.fps));
         self.ui.set_text(
             self.ui.by_name("test_panel_title").unwrap(),
             format!("Frame #{}", self.counter),
         );
+        if self.time_accumulator > 1000.0 {
+            self.time_accumulator = 0.0;
+            let target = self.ui.by_name("test_panel").unwrap();
+            let v = self.ui.visible(target);
+            if v {
+                self.ui.hide(target);
+            } else {
+                self.ui.show(target);
+            }
+        }
+
+        // Do the drawing
         self.ui.render_to_batch(ctx).expect("Error batching UI");
         render_draw_buffer(ctx).expect("Render batch error");
     }

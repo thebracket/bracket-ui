@@ -37,4 +37,9 @@ pub trait UiElement {
         String::new()
     }
     fn set_text(&mut self, _text: String) {}
+    fn visible(&self) -> bool {
+        true
+    }
+    fn show(&mut self) {}
+    fn hide(&mut self) {}
 }

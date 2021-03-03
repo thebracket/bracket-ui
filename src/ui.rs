@@ -77,4 +77,24 @@ impl UserInterface {
             e.set_text(text.to_string());
         }
     }
+
+    pub fn visible(&mut self, id: ElementId) -> bool {
+        if let Some(e) = self.root_element.find(id) {
+            e.visible()
+        } else {
+            false
+        }
+    }
+
+    pub fn show(&mut self, id: ElementId) {
+        if let Some(e) = self.root_element.find(id) {
+            e.show();
+        }
+    }
+
+    pub fn hide(&mut self, id: ElementId) {
+        if let Some(e) = self.root_element.find(id) {
+            e.hide();
+        }
+    }
 }

@@ -22,6 +22,7 @@ pub struct Panel {
     id: ElementId,
     layout: PanelLayout,
     cached_bounds: Rect,
+    visible: bool,
 }
 
 impl UiElement for Panel {
@@ -30,6 +31,9 @@ impl UiElement for Panel {
     }
 
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
+        if !self.visible {
+            return;
+        }
         let bounds = match self.layout {
             PanelLayout::Absolute(r) => Rect::with_exact(r.x1, r.y1, r.x2, r.y2 + 1),
             PanelLayout::Fill => parent_bounds,
@@ -98,6 +102,18 @@ impl UiElement for Panel {
     fn same_line(&self) -> bool {
         true
     }
+
+    fn visible(&self) -> bool {
+        self.visible
+    }
+
+    fn show(&mut self) {
+        self.visible = true;
+    }
+
+    fn hide(&mut self) {
+        self.visible = false;
+    }
 }
 
 impl Panel {
@@ -107,6 +123,7 @@ impl Panel {
             id: ElementId::new(),
             layout,
             cached_bounds: Rect::zero(),
+            visible: true,
         })
     }
 

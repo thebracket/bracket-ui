@@ -7,6 +7,7 @@ pub struct Label {
     color: ColorPair,
     id: ElementId,
     same_line: bool,
+    visible: bool,
 }
 
 impl UiElement for Label {
@@ -22,11 +23,13 @@ impl UiElement for Label {
     }
 
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
-        batch.print_color(
-            Point::new(parent_bounds.x1, parent_bounds.y1),
-            &self.text,
-            self.color,
-        );
+        if self.visible {
+            batch.print_color(
+                Point::new(parent_bounds.x1, parent_bounds.y1),
+                &self.text,
+                self.color,
+            );
+        }
     }
 
     fn measure_y(&self) -> i32 {
@@ -48,6 +51,18 @@ impl UiElement for Label {
     fn set_text(&mut self, text: String) {
         self.text = text;
     }
+
+    fn visible(&self) -> bool {
+        self.visible
+    }
+
+    fn show(&mut self) {
+        self.visible = true;
+    }
+
+    fn hide(&mut self) {
+        self.visible = false;
+    }
 }
 
 impl Label {
@@ -57,6 +72,7 @@ impl Label {
             color,
             id: ElementId::new(),
             same_line,
+            visible: true,
         })
     }
 }
