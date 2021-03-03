@@ -67,6 +67,20 @@ impl UiElement for Border {
     fn insert_child(&mut self, e: Box<dyn UiElement>) {
         self.children.push(e);
     }
+
+    fn text(&self) -> String {
+        if let Some(t) = &self.title {
+            t.title.clone()
+        } else {
+            String::new()
+        }
+    }
+
+    fn set_text(&mut self, text: String) {
+        if let Some(t) = self.title.as_mut() {
+            t.title = text;
+        }
+    }
 }
 
 impl Border {

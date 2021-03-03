@@ -33,4 +33,6 @@ pub trait UiElement {
     fn same_line(&self) -> bool {
         false
     }
+    fn text(&self) -> String { String::new() }
+    fn set_text(&mut self, _text: String) {}
 }

@@ -67,4 +67,18 @@ impl UserInterface {
     pub(crate) fn store_name<S: ToString>(&mut self, name: S, id: ElementId) {
         self.name_to_id.insert(name.to_string(), id);
     }
+
+    pub fn text(&mut self, id: ElementId) -> String {
+        if let Some(e) = self.root_element.find(id) {
+            e.text()
+        } else {
+            String::new()
+        }
+    }
+
+    pub fn set_text<S: ToString>(&mut self, id: ElementId, text: S) {
+        if let Some(e) = self.root_element.find(id) {
+            e.set_text(text.to_string());
+        }
+    }
 }

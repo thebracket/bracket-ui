@@ -40,6 +40,14 @@ impl UiElement for Label {
     fn same_line(&self) -> bool {
         self.same_line
     }
+
+    fn text(&self) -> String {
+        self.text.clone()
+    }
+
+    fn set_text(&mut self, text: String) {
+        self.text = text;
+    }
 }
 
 impl Label {
