@@ -101,4 +101,20 @@ impl Panel {
             cached_bounds: Rect::zero(),
         })
     }
+
+    pub fn split_vertical(&mut self, percent: i32) -> (ElementId, ElementId) {
+        let top = Panel::new(
+            PanelLayout::Top{ percent: Some(percent), min: None, max: None }
+        );
+        let bottom = Panel::new(
+            PanelLayout::Top{ percent: Some(100), min: None, max: None }
+        );
+        let top_id = top.id();
+        let bottom_id = bottom.id();
+
+        self.insert_child(top);
+        self.insert_child(bottom);
+
+        (top_id, bottom_id)
+    }
 }
