@@ -63,4 +63,8 @@ impl UserInterface {
             None
         }
     }
+
+    pub(crate) fn store_name<S: ToString>(&mut self, name: S, id: ElementId) {
+        self.name_to_id.insert(name.to_string(), id);
+    }
 }

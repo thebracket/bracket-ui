@@ -10,7 +10,7 @@ impl State {
         let mut ui = UserInterface::new(0, 0);
 
         let mut main_panel = Panel::new(PanelLayout::Fill);
-        let (top, bottom) = main_panel.split_horizontal(50);
+        let (top, bottom) = main_panel.split_horizontal(&mut ui, 50, "Split1", "Split2");
 
         ui.insert("root", ui.root(), main_panel);
         ui.insert(
