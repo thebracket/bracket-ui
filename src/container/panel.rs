@@ -22,7 +22,7 @@ impl UiElement for Panel {
     }
 
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
-        let mut bounds = match self.layout {
+        let bounds = match self.layout {
             PanelLayout::Absolute(r) => Rect::with_exact(r.x1, r.y1, r.x2, r.y2 + 1),
             PanelLayout::Fill => parent_bounds,
             PanelLayout::Left{percent, min, max} => {
