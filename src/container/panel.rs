@@ -1,6 +1,5 @@
 use crate::{
     element::{ElementId, UiElement},
-    prelude::UserInterface,
 };
 use bracket_lib::prelude::*;
 
@@ -113,13 +112,10 @@ impl Panel {
         })
     }
 
-    pub fn split_vertical<S: ToString>(
+    pub fn split_vertical(
         &mut self,
-        ui: &mut UserInterface,
         percent: i32,
-        label_a: S,
-        label_b: S,
-    ) -> (ElementId, ElementId) {
+    ) -> (Box<Self>, Box<Self>) {
         let top = Panel::new(PanelLayout::Top {
             percent: Some(percent),
             min: None,
@@ -130,24 +126,14 @@ impl Panel {
             min: None,
             max: None,
         });
-        let top_id = top.id();
-        let bottom_id = bottom.id();
 
-        self.insert_child(top);
-        self.insert_child(bottom);
-        ui.store_name(label_a, top_id);
-        ui.store_name(label_b, bottom_id);
-
-        (top_id, bottom_id)
+        (top, bottom)
     }
 
-    pub fn split_horizontal<S: ToString>(
+    pub fn split_horizontal(
         &mut self,
-        ui: &mut UserInterface,
         percent: i32,
-        label_a: S,
-        label_b: S,
-    ) -> (ElementId, ElementId) {
+    ) -> (Box<Self>, Box<Self>) {
         let top = Panel::new(PanelLayout::Left {
             percent: Some(percent),
             min: None,
@@ -158,14 +144,7 @@ impl Panel {
             min: None,
             max: None,
         });
-        let top_id = top.id();
-        let bottom_id = bottom.id();
 
-        self.insert_child(top);
-        self.insert_child(bottom);
-        ui.store_name(label_a, top_id);
-        ui.store_name(label_b, bottom_id);
-
-        (top_id, bottom_id)
+        (top, bottom)
     }
 }

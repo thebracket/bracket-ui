@@ -3,7 +3,7 @@ use crate::{
     element::{ElementId, UiElement},
 };
 use bracket_lib::prelude::*;
-use std::collections::HashMap;
+use std::{any::Any, collections::HashMap};
 
 pub struct UserInterface {
     root_element: Box<dyn UiElement>,
