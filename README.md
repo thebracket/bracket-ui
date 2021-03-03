@@ -18,3 +18,5 @@ The syntax is still pretty wretched. That will be a later target; make it work f
 ## What doesn't work yet?
 
 A lot of things. Most notably, any sort of user interaction with controls. I'm also hoping for a stylesheet system and a builder pattern to make UI building less painful.
+
+Oh, and I haven't documented *anything* yet. I'd like to get closer to a final interface before I do that.
