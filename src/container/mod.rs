@@ -3,6 +3,8 @@ use bracket_lib::prelude::{DrawBatch, Rect};
 pub use root::*;
 pub mod panel;
 pub use panel::*;
+pub mod border;
+pub use border::Border;
 
 use crate::element::UiElement;
 
