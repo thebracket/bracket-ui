@@ -1,11 +1,10 @@
-mod containers;
 mod element;
-mod renderable;
 mod ui;
-mod uislots;
+mod container;
+mod widgets;
 
 pub mod prelude {
-    pub use crate::containers::*;
-    pub use crate::renderable::*;
     pub use crate::ui::*;
+    pub use crate::container::*;
+    pub use crate::widgets::*;
 }
