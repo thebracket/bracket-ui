@@ -8,21 +8,29 @@ struct State {
 impl State {
     fn new() -> Self {
         let mut ui = UserInterface::new(0, 0);
-        let main = ui.insert(
-            ui.root(),
-            Panel::new(PanelLayout::Fill)
-        );
+        let main = ui.insert(ui.root(), Panel::new(PanelLayout::Fill));
         ui.insert(main, Filler::new(to_cp437('░'), ColorPair::new(NAVY, BLUE)));
 
         let leftist = ui.insert(
             main,
-            Panel::new(PanelLayout::Left{ percent: Some(50), min: None, max: None })
+            Panel::new(PanelLayout::Left {
+                percent: Some(50),
+                min: None,
+                max: None,
+            }),
         );
-        ui.insert(leftist, Filler::new(to_cp437('░'), ColorPair::new(DARK_GREEN, GREEN)));
+        ui.insert(
+            leftist,
+            Filler::new(to_cp437('░'), ColorPair::new(DARK_GREEN, GREEN)),
+        );
 
         let lt = ui.insert(
             leftist,
-            Panel::new(PanelLayout::Top{ percent: Some(50), min: None, max: None })
+            Panel::new(PanelLayout::Top {
+                percent: Some(50),
+                min: None,
+                max: None,
+            }),
         );
         ui.insert(lt, Filler::new(to_cp437('░'), ColorPair::new(BLACK, GOLD)));
 

@@ -5,7 +5,7 @@ use crate::element::{ElementId, UiElement};
 pub struct Filler {
     glyph: FontCharType,
     color: ColorPair,
-    id: ElementId
+    id: ElementId,
 }
 
 impl UiElement for Filler {
@@ -32,7 +32,7 @@ impl Filler {
         Box::new(Self {
             glyph,
             color,
-            id : ElementId::new()
+            id: ElementId::new(),
         })
     }
 }

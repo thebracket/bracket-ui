@@ -24,6 +24,10 @@ pub trait UiElement {
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch);
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement>;
     fn insert_child(&mut self, _e: Box<dyn UiElement>) {}
-    fn measure_y(&self) -> i32 { 0 }
-    fn measure_x(&self) -> i32 { 0 }
+    fn measure_y(&self) -> i32 {
+        0
+    }
+    fn measure_x(&self) -> i32 {
+        0
+    }
 }

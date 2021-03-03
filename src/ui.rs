@@ -1,5 +1,8 @@
+use crate::{
+    container::EmptyRoot,
+    element::{ElementId, UiElement},
+};
 use bracket_lib::prelude::*;
-use crate::{container::EmptyRoot, element::{ElementId, UiElement}};
 
 pub struct UserInterface {
     root_element: Box<dyn UiElement>,
@@ -20,8 +23,8 @@ impl UserInterface {
 
     pub fn render_to_batch(&mut self, ctx: &mut BTerm) -> BError {
         ctx.set_active_console(self.layer);
-        let (w,h) = ctx.get_char_size();
-        let bounds = Rect::with_size(0, 0, w-1, h-1);
+        let (w, h) = ctx.get_char_size();
+        let bounds = Rect::with_size(0, 0, w - 1, h - 1);
         let mut batch = DrawBatch::new();
         self.root_element.render(bounds, &mut batch);
         batch.submit(self.batch_index)?;

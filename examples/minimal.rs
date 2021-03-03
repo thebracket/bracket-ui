@@ -26,7 +26,6 @@ impl GameState for State {
 }
 
 fn main() -> BError {
-    let bracket = BTermBuilder::simple80x50()
-        .build()?;
+    let bracket = BTermBuilder::simple80x50().build()?;
     main_loop(bracket, State::new())
 }

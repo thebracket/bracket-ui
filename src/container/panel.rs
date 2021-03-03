@@ -5,8 +5,16 @@ use bracket_lib::prelude::*;
 pub enum PanelLayout {
     Absolute(Rect),
     Fill,
-    Left{percent: Option<i32>, min: Option<i32>, max: Option<i32>},
-    Top{percent: Option<i32>, min: Option<i32>, max: Option<i32>},
+    Left {
+        percent: Option<i32>,
+        min: Option<i32>,
+        max: Option<i32>,
+    },
+    Top {
+        percent: Option<i32>,
+        min: Option<i32>,
+        max: Option<i32>,
+    },
 }
 
 pub struct Panel {
@@ -25,7 +33,7 @@ impl UiElement for Panel {
         let bounds = match self.layout {
             PanelLayout::Absolute(r) => Rect::with_exact(r.x1, r.y1, r.x2, r.y2 + 1),
             PanelLayout::Fill => parent_bounds,
-            PanelLayout::Left{percent, min, max} => {
+            PanelLayout::Left { percent, min, max } => {
                 let mut w = 0;
                 if let Some(pct) = percent {
                     w = (parent_bounds.width() as f32 * (pct as f32 / 100.0)) as i32;
@@ -38,12 +46,7 @@ impl UiElement for Panel {
                 }
                 let h = parent_bounds.height();
 
-                Rect::with_size(
-                    parent_bounds.x1,
-                    parent_bounds.y1,
-                    w,
-                    h
-                )
+                Rect::with_size(parent_bounds.x1, parent_bounds.y1, w, h)
             }
             PanelLayout::Top { percent, min, max } => {
                 let mut h = 0;
@@ -58,12 +61,7 @@ impl UiElement for Panel {
                 }
                 let w = parent_bounds.width();
 
-                Rect::with_size(
-                    parent_bounds.x1,
-                    parent_bounds.y1,
-                    w,
-                    h
-                )
+                Rect::with_size(parent_bounds.x1, parent_bounds.y1, w, h)
             }
         };
         self.cached_bounds = bounds;
@@ -96,8 +94,8 @@ impl UiElement for Panel {
 
 impl Panel {
     pub fn new(layout: PanelLayout) -> Box<Self> {
-        Box::new(Self{
-            children : Vec::new(),
+        Box::new(Self {
+            children: Vec::new(),
             id: ElementId::new(),
             layout,
             cached_bounds: Rect::zero(),

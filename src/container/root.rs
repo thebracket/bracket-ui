@@ -3,7 +3,7 @@ use bracket_lib::prelude::*;
 
 pub struct EmptyRoot {
     children: Vec<Box<dyn UiElement>>,
-    id: ElementId
+    id: ElementId,
 }
 
 impl UiElement for EmptyRoot {
@@ -38,8 +38,8 @@ impl UiElement for EmptyRoot {
 
 impl EmptyRoot {
     pub fn new() -> Box<Self> {
-        Box::new(Self{
-            children : Vec::new(),
+        Box::new(Self {
+            children: Vec::new(),
             id: ElementId::new(),
         })
     }

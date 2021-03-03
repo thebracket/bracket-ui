@@ -5,7 +5,7 @@ use crate::element::{ElementId, UiElement};
 pub struct Label {
     text: String,
     color: ColorPair,
-    id: ElementId
+    id: ElementId,
 }
 
 impl UiElement for Label {
@@ -21,7 +21,11 @@ impl UiElement for Label {
     }
 
     fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
-        batch.print_color(Point::new(parent_bounds.x1, parent_bounds.y1), &self.text, self.color);
+        batch.print_color(
+            Point::new(parent_bounds.x1, parent_bounds.y1),
+            &self.text,
+            self.color,
+        );
     }
 
     fn measure_y(&self) -> i32 {
@@ -38,7 +42,7 @@ impl Label {
         Box::new(Self {
             text: text.to_string(),
             color,
-            id : ElementId::new()
+            id: ElementId::new(),
         })
     }
 }
