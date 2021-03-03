@@ -23,7 +23,11 @@ fn panel_inner_render(
             bounds.x2 + 1,
             bounds.y2 + 1,
         )));
-        c.render(Rect::with_exact(x, bounds.y1, bounds.x2, bounds.y2), batch, mouse_coverage);
+        c.render(
+            Rect::with_exact(x, bounds.y1, bounds.x2, bounds.y2),
+            batch,
+            mouse_coverage,
+        );
         if c.same_line() {
             let x_extent = c.measure_x();
             x += x_extent;

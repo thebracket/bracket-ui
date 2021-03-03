@@ -1,6 +1,6 @@
-use bracket_lib::prelude::*;
 use crate::element::{ElementId, UiElement};
 use crate::mouse_coverage::MouseCoverage;
+use bracket_lib::prelude::*;
 
 pub enum ButtonDecor {
     Plain,
@@ -29,7 +29,12 @@ impl UiElement for Button {
         None
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
+    fn render(
+        &mut self,
+        parent_bounds: Rect,
+        batch: &mut DrawBatch,
+        mouse_coverage: &mut MouseCoverage,
+    ) {
         if self.visible {
             match self.decoration {
                 ButtonDecor::Plain => {
@@ -38,16 +43,34 @@ impl UiElement for Button {
                         &self.text,
                         self.color,
                     );
-                    self.cached_bounds = Rect::with_size(parent_bounds.x1, parent_bounds.y1, self.text.len() as i32, 1);
+                    self.cached_bounds = Rect::with_size(
+                        parent_bounds.x1,
+                        parent_bounds.y1,
+                        self.text.len() as i32,
+                        1,
+                    );
                 }
                 ButtonDecor::Border => {
-                    batch.draw_box(Rect::with_size(parent_bounds.x1, parent_bounds.y1, self.text.len() as i32 + 1, 2), self.color);
+                    batch.draw_box(
+                        Rect::with_size(
+                            parent_bounds.x1,
+                            parent_bounds.y1,
+                            self.text.len() as i32 + 1,
+                            2,
+                        ),
+                        self.color,
+                    );
                     batch.print_color(
-                        Point::new(parent_bounds.x1+1, parent_bounds.y1+1),
+                        Point::new(parent_bounds.x1 + 1, parent_bounds.y1 + 1),
                         &self.text,
                         self.color,
                     );
-                    self.cached_bounds = Rect::with_size(parent_bounds.x1, parent_bounds.y1, self.text.len() as i32 + 2, 3);
+                    self.cached_bounds = Rect::with_size(
+                        parent_bounds.x1,
+                        parent_bounds.y1,
+                        self.text.len() as i32 + 2,
+                        3,
+                    );
                 }
             }
             mouse_coverage.push(self.id, self.cached_bounds);
@@ -56,8 +79,8 @@ impl UiElement for Button {
 
     fn measure_y(&self) -> i32 {
         match self.decoration {
-           ButtonDecor::Plain => 1,
-           ButtonDecor::Border => 3,
+            ButtonDecor::Plain => 1,
+            ButtonDecor::Border => 3,
         }
     }
 
@@ -107,7 +130,7 @@ impl Button {
             same_line,
             visible: true,
             decoration,
-            cached_bounds: Rect::zero()
+            cached_bounds: Rect::zero(),
         })
     }
 }

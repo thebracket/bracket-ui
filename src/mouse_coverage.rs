@@ -1,19 +1,19 @@
-use bracket_lib::prelude::{BTerm, Rect};
 use crate::{element::ElementId, prelude::UiMessage};
+use bracket_lib::prelude::{BTerm, Rect};
 use std::collections::VecDeque;
 
 pub struct MouseCoverage {
-    tiles : Vec<Option<ElementId>>,
-    width : i32
+    tiles: Vec<Option<ElementId>>,
+    width: i32,
 }
 
 impl MouseCoverage {
     pub fn new(w: u32, h: u32) -> Self {
         let sz = (w * h) as usize;
         let tiles = vec![None; sz];
-        Self{
+        Self {
             tiles,
-            width: w as i32
+            width: w as i32,
         }
     }
 

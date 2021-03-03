@@ -1,6 +1,6 @@
-use bracket_lib::prelude::*;
 use crate::element::{ElementId, UiElement};
 use crate::mouse_coverage::MouseCoverage;
+use bracket_lib::prelude::*;
 
 pub struct Label {
     text: String,
@@ -22,7 +22,12 @@ impl UiElement for Label {
         None
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, _mouse_coverage: &mut MouseCoverage) {
+    fn render(
+        &mut self,
+        parent_bounds: Rect,
+        batch: &mut DrawBatch,
+        _mouse_coverage: &mut MouseCoverage,
+    ) {
         if self.visible {
             batch.print_color(
                 Point::new(parent_bounds.x1, parent_bounds.y1),

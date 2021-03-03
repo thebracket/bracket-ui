@@ -21,7 +21,12 @@ impl UiElement for Border {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
+    fn render(
+        &mut self,
+        parent_bounds: Rect,
+        batch: &mut DrawBatch,
+        mouse_coverage: &mut MouseCoverage,
+    ) {
         if self.double_line {
             batch.draw_double_box(parent_bounds, self.color);
             if let Some(bt) = &self.title {

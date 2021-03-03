@@ -31,7 +31,12 @@ impl UiElement for Panel {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
+    fn render(
+        &mut self,
+        parent_bounds: Rect,
+        batch: &mut DrawBatch,
+        mouse_coverage: &mut MouseCoverage,
+    ) {
         if !self.visible {
             return;
         }

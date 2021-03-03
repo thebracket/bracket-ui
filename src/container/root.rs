@@ -12,7 +12,12 @@ impl UiElement for EmptyRoot {
         self.id
     }
 
-    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch, mouse_coverage: &mut MouseCoverage) {
+    fn render(
+        &mut self,
+        parent_bounds: Rect,
+        batch: &mut DrawBatch,
+        mouse_coverage: &mut MouseCoverage,
+    ) {
         // This doesn't draw anything by itself, but passes to children
         super::panel_inner_render(parent_bounds, batch, &mut self.children, mouse_coverage);
     }

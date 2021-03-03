@@ -1,11 +1,15 @@
-use crate::{container::EmptyRoot, element::{ElementId, UiElement}, mouse_coverage::{self, MouseCoverage}};
+use crate::{
+    container::EmptyRoot,
+    element::{ElementId, UiElement},
+    mouse_coverage::{self, MouseCoverage},
+};
 use bracket_lib::prelude::*;
 use std::collections::HashMap;
 use std::collections::VecDeque;
 
 #[derive(Debug)]
 pub enum UiMessage {
-    MouseClick(ElementId)
+    MouseClick(ElementId),
 }
 
 pub struct UserInterface {
@@ -14,7 +18,7 @@ pub struct UserInterface {
     batch_index: usize,
     name_to_id: HashMap<String, ElementId>,
     messages: VecDeque<UiMessage>,
-    enable_mouse: bool
+    enable_mouse: bool,
 }
 
 impl UserInterface {
@@ -28,7 +32,7 @@ impl UserInterface {
             batch_index,
             name_to_id: name_to_id,
             messages: VecDeque::new(),
-            enable_mouse: false
+            enable_mouse: false,
         };
 
         ui
@@ -44,7 +48,8 @@ impl UserInterface {
         let bounds = Rect::with_size(0, 0, w - 1, h - 1);
         let mut batch = DrawBatch::new();
         let mut mouse_coverage = MouseCoverage::new(w, h);
-        self.root_element.render(bounds, &mut batch, &mut mouse_coverage);
+        self.root_element
+            .render(bounds, &mut batch, &mut mouse_coverage);
         batch.submit(self.batch_index)?;
         if self.enable_mouse {
             mouse_coverage.message_pump(ctx, &mut self.messages);
