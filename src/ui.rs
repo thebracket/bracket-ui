@@ -1,7 +1,4 @@
-use crate::{
-    container::EmptyRoot,
-    element::{ElementId, UiElement},
-};
+use crate::{container::EmptyRoot, element::{ElementId, UiElement}, prelude::root};
 use bracket_lib::prelude::*;
 use std::collections::HashMap;
 
@@ -14,11 +11,14 @@ pub struct UserInterface {
 
 impl UserInterface {
     pub fn new(layer: usize, batch_index: usize) -> Self {
+        let root_element = EmptyRoot::new();
+        let mut name_to_id = HashMap::new();
+        name_to_id.insert("default_root".to_string(), root_element.id());
         let ui = Self {
-            root_element: EmptyRoot::new(),
+            root_element,
             layer,
             batch_index,
-            name_to_id: HashMap::new(),
+            name_to_id: name_to_id,
         };
 
         ui
