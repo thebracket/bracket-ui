@@ -9,6 +9,7 @@ impl State {
     fn new() -> Self {
         let mut ui = UserInterface::new(0, 0);
         ui.insert(
+            "root",
             ui.root(),
             Label::new("Hello World", ColorPair::new(YELLOW, BLACK)),
         );

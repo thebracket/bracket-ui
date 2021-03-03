@@ -8,11 +8,16 @@ struct State {
 impl State {
     fn new() -> Self {
         let mut ui = UserInterface::new(0, 0);
-        let main = ui.insert(ui.root(), Panel::new(PanelLayout::Fill));
-        ui.insert(main, Filler::new(to_cp437('░'), ColorPair::new(NAVY, BLUE)));
+        ui.insert("root", ui.root(), Panel::new(PanelLayout::Fill));
+        ui.insert(
+            "root_filler",
+            ui.by_name("root").unwrap(),
+            Filler::new(to_cp437('░'), ColorPair::new(NAVY, BLUE)),
+        );
 
-        let leftist = ui.insert(
-            main,
+        ui.insert(
+            "leftist",
+            ui.by_name("root").unwrap(),
             Panel::new(PanelLayout::Left {
                 percent: Some(50),
                 min: None,
@@ -20,23 +25,30 @@ impl State {
             }),
         );
         ui.insert(
-            leftist,
+            "leftist_filler",
+            ui.by_name("leftist").unwrap(),
             Filler::new(to_cp437('░'), ColorPair::new(DARK_GREEN, GREEN)),
         );
 
-        let lt = ui.insert(
-            leftist,
+        ui.insert(
+            "lt",
+            ui.by_name("leftist").unwrap(),
             Panel::new(PanelLayout::Top {
                 percent: Some(50),
                 min: None,
                 max: None,
             }),
         );
-        ui.insert(lt, Filler::new(to_cp437('░'), ColorPair::new(BLACK, GOLD)));
+        ui.insert(
+            "lt_filler",
+            ui.by_name("lt").unwrap(),
+            Filler::new(to_cp437('░'), ColorPair::new(BLACK, GOLD)),
+        );
 
         // Add some labels
-        let lefty_border = ui.insert(
-            lt,
+        ui.insert(
+            "lefty_border",
+            ui.by_name("lt").unwrap(),
             Border::new(
                 true,
                 ColorPair::new(WHITE, BLACK),
@@ -46,9 +58,14 @@ impl State {
                 }),
             ),
         );
-        ui.insert(leftist, Label::new("Lefty", ColorPair::new(BLACK, WHITE)));
         ui.insert(
-            lefty_border,
+            "lefty_label",
+            ui.by_name("leftist").unwrap(),
+            Label::new("Lefty", ColorPair::new(BLACK, WHITE)),
+        );
+        ui.insert(
+            "left-top-label",
+            ui.by_name("lefty_border").unwrap(),
             Label::new("Left-Top", ColorPair::new(GRAY, BLACK)),
         );
 

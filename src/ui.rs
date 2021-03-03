@@ -3,11 +3,13 @@ use crate::{
     element::{ElementId, UiElement},
 };
 use bracket_lib::prelude::*;
+use std::collections::HashMap;
 
 pub struct UserInterface {
     root_element: Box<dyn UiElement>,
     layer: usize,
     batch_index: usize,
+    name_to_id: HashMap<String, ElementId>,
 }
 
 impl UserInterface {
@@ -16,6 +18,7 @@ impl UserInterface {
             root_element: EmptyRoot::new(),
             layer,
             batch_index,
+            name_to_id: HashMap::new(),
         };
 
         ui
@@ -35,12 +38,26 @@ impl UserInterface {
         self.root_element.id()
     }
 
-    pub fn insert(&mut self, parent_id: ElementId, element: Box<dyn UiElement>) -> ElementId {
+    pub fn insert<S: ToString>(
+        &mut self,
+        name: S,
+        parent_id: ElementId,
+        element: Box<dyn UiElement>,
+    ) -> ElementId {
         let id = element.id();
+        self.name_to_id.insert(name.to_string(), id);
         let parent = self.root_element.find(parent_id);
         if let Some(parent) = parent {
             parent.insert_child(element);
         }
         id
+    }
+
+    pub fn by_name<S: ToString>(&self, name: S) -> Option<ElementId> {
+        if let Some(opt) = self.name_to_id.get(&name.to_string()) {
+            Some(*opt)
+        } else {
+            None
+        }
     }
 }
