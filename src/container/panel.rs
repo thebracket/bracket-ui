@@ -90,6 +90,14 @@ impl UiElement for Panel {
     fn measure_y(&self) -> i32 {
         self.cached_bounds.height() + 1
     }
+
+    fn measure_x(&self) -> i32 {
+        self.cached_bounds.width()
+    }
+
+    fn same_line(&self) -> bool {
+        true
+    }
 }
 
 impl Panel {
@@ -108,6 +116,22 @@ impl Panel {
         );
         let bottom = Panel::new(
             PanelLayout::Top{ percent: Some(100), min: None, max: None }
+        );
+        let top_id = top.id();
+        let bottom_id = bottom.id();
+
+        self.insert_child(top);
+        self.insert_child(bottom);
+
+        (top_id, bottom_id)
+    }
+
+    pub fn split_horizontal(&mut self, percent: i32) -> (ElementId, ElementId) {
+        let top = Panel::new(
+            PanelLayout::Left{ percent: Some(percent), min: None, max: None }
+        );
+        let bottom = Panel::new(
+            PanelLayout::Left{ percent: Some(100), min: None, max: None }
         );
         let top_id = top.id();
         let bottom_id = bottom.id();

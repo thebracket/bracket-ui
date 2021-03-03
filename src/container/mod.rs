@@ -13,15 +13,28 @@ fn panel_inner_render(
     batch: &mut DrawBatch,
     children: &mut [Box<dyn UiElement>],
 ) {
+    let mut x = bounds.x1;
     for c in children {
         batch.set_clipping(Some(Rect::with_exact(
-            bounds.x1,
+            x,
             bounds.y1,
             bounds.x2 + 1,
             bounds.y2 + 1,
         )));
-        c.render(bounds, batch);
-        bounds.y1 += c.measure_y();
+        c.render(Rect::with_exact(x, bounds.y1, bounds.x2, bounds.y2), batch);
+        if c.same_line() {
+            let x_extent = c.measure_x();
+            x += x_extent;
+            if x >= bounds.x2 {
+                let y_extent = c.measure_y();
+                bounds.y1 += y_extent;
+                x = bounds.x1;
+            }
+        } else {
+            let y_extent = c.measure_y();
+            bounds.y1 += y_extent;
+            x = bounds.x1;
+        }
     }
     batch.set_clipping(None);
 }

@@ -11,7 +11,17 @@ impl State {
         ui.insert(
             "root",
             ui.root(),
-            Label::new("Hello World", ColorPair::new(YELLOW, BLACK)),
+            Label::new("Hello World", ColorPair::new(YELLOW, BLACK), true),
+        );
+        ui.insert(
+            "root",
+            ui.root(),
+            Label::new("(Same Line Demo)", ColorPair::new(CYAN, BLACK), false),
+        );
+        ui.insert(
+            "root",
+            ui.root(),
+            Label::new("Hello World on a 2nd line", ColorPair::new(GREEN, BLACK), false),
         );
 
         Self { ui }

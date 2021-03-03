@@ -61,12 +61,12 @@ impl State {
         ui.insert(
             "lefty_label",
             ui.by_name("leftist").unwrap(),
-            Label::new("Lefty", ColorPair::new(BLACK, WHITE)),
+            Label::new("Lefty", ColorPair::new(BLACK, WHITE), false),
         );
         ui.insert(
             "left-top-label",
             ui.by_name("lefty_border").unwrap(),
-            Label::new("Left-Top", ColorPair::new(GRAY, BLACK)),
+            Label::new("Left-Top", ColorPair::new(GRAY, BLACK), false),
         );
 
         Self { ui }
