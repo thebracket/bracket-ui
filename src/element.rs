@@ -21,7 +21,7 @@ impl ElementId {
 
 pub trait UiElement {
     fn id(&self) -> ElementId;
-    fn render(&self, parent_bounds: Rect, batch: &mut DrawBatch);
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch);
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement>;
     fn insert_child(&mut self, _e: Box<dyn UiElement>) {}
     fn measure_y(&self) -> i32 { 0 }

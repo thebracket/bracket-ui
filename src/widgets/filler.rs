@@ -20,7 +20,7 @@ impl UiElement for Filler {
         None
     }
 
-    fn render(&self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
         parent_bounds.for_each(|p| {
             batch.set(p, self.color, self.glyph);
         });

@@ -18,7 +18,7 @@ impl UserInterface {
         ui
     }
 
-    pub fn render_to_batch(&self, ctx: &mut BTerm) -> BError {
+    pub fn render_to_batch(&mut self, ctx: &mut BTerm) -> BError {
         ctx.set_active_console(self.layer);
         let (w,h) = ctx.get_char_size();
         let bounds = Rect::with_size(0, 0, w-1, h-1);

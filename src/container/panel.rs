@@ -13,7 +13,7 @@ pub struct Panel {
     children: Vec<Box<dyn UiElement>>,
     id: ElementId,
     layout: PanelLayout,
-    border: bool,
+    cached_bounds: Rect,
 }
 
 impl UiElement for Panel {
@@ -21,7 +21,7 @@ impl UiElement for Panel {
         self.id
     }
 
-    fn render(&self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
         let mut bounds = match self.layout {
             PanelLayout::Absolute(r) => Rect::with_exact(r.x1, r.y1, r.x2, r.y2 + 1),
             PanelLayout::Fill => parent_bounds,
@@ -66,15 +66,8 @@ impl UiElement for Panel {
                 )
             }
         };
-        if self.border {
-            batch.draw_box(bounds, ColorPair::new(GREY, BLACK));
-            bounds.x1 +=1;
-            bounds.y1 += 1;
-            bounds.x2 -=1;
-            bounds.y2 -=1;
-        }
-        //println!("{:?} : {:?}", self.layout, bounds);
-        super::panel_inner_render(bounds, batch, &self.children);
+        self.cached_bounds = bounds;
+        super::panel_inner_render(bounds, batch, &mut self.children);
     }
 
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement> {
@@ -95,15 +88,19 @@ impl UiElement for Panel {
     fn insert_child(&mut self, e: Box<dyn UiElement>) {
         self.children.push(e);
     }
+
+    fn measure_y(&self) -> i32 {
+        self.cached_bounds.height() + 1
+    }
 }
 
 impl Panel {
-    pub fn new(layout: PanelLayout, border: bool) -> Box<Self> {
+    pub fn new(layout: PanelLayout) -> Box<Self> {
         Box::new(Self{
             children : Vec::new(),
             id: ElementId::new(),
             layout,
-            border,
+            cached_bounds: Rect::zero(),
         })
     }
 }

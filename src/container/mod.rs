@@ -6,7 +6,7 @@ pub use panel::*;
 
 use crate::element::UiElement;
 
-fn panel_inner_render(mut bounds: Rect, batch: &mut DrawBatch, children: &[Box<dyn UiElement>]) {
+fn panel_inner_render(mut bounds: Rect, batch: &mut DrawBatch, children: &mut [Box<dyn UiElement>]) {
     for c in children {
         batch.set_clipping(Some(Rect::with_exact(bounds.x1, bounds.y1, bounds.x2 + 1, bounds.y2 + 1)));
         c.render(bounds, batch);

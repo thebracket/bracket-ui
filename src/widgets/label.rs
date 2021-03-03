@@ -20,7 +20,7 @@ impl UiElement for Label {
         None
     }
 
-    fn render(&self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
         batch.print_color(Point::new(parent_bounds.x1, parent_bounds.y1), &self.text, self.color);
     }
 

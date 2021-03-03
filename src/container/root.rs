@@ -11,9 +11,9 @@ impl UiElement for EmptyRoot {
         self.id
     }
 
-    fn render(&self, parent_bounds: Rect, batch: &mut DrawBatch) {
+    fn render(&mut self, parent_bounds: Rect, batch: &mut DrawBatch) {
         // This doesn't draw anything by itself, but passes to children
-        super::panel_inner_render(parent_bounds, batch, &self.children);
+        super::panel_inner_render(parent_bounds, batch, &mut self.children);
     }
 
     fn find(&mut self, id: ElementId) -> Option<&mut dyn UiElement> {
