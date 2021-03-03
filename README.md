@@ -12,6 +12,7 @@ You can find examples showing in-development functionality of building layouts a
 * `panel_layouts` demonstrates early panel functionality, with absolute and relative placements supported. Nesting panels is encouraged.
 * `splits` shows how to use the panel `split_horizontal` and `split_vertical` functions to sub-divide panels into sections.
 * `updates` uses the widget query/set system to push UI updates. Currently updates a label, a title, and shows/hides a panel.
+* `mouse` is the genesis of mouse support with buttons. Not very far along yet.
 
 The syntax is still pretty wretched. That will be a later target; make it work first, and then make it pretty!
 
